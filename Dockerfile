@@ -11,12 +11,13 @@ RUN apk add --no-cache qemu-system-x86_64 qemu-img iproute2 iptables bash wget
 ARG CHR_VERSION=7.14.3
 
 WORKDIR /images
-RUN CHR_VERSION_SUFFIX="" && if [ "$TARGETARCH" = "arm64" ]; then CHR_VERSION_SUFFIX="-arm64"; fi && \
-    CHR_FILE_VERSION="${CHR_VERSION}${CHR_VERSION_SUFFIX}" && \
-    wget "https://download.mikrotik.com/routeros/${CHR_FILE_VERSION}/chr-${CHR_FILE_VERSION}.img.zip" && \
-    unzip "chr-${CHR_FILE_VERSION}.img.zip" && \
-    mv "chr-${CHR_FILE_VERSION}.img" /images/chr.img && \
-    rm "chr-${CHR_FILE_VERSION}.img.zip"
+RUN CHR_VERSION_SUFFIX="" && \
+    if [ "$TARGETARCH" = "arm64" ]; then CHR_VERSION_SUFFIX="-arm64"; fi && \
+    FILE_NAME="chr-${CHR_VERSION}${CHR_VERSION_SUFFIX}" && \
+    wget "https://download.mikrotik.com/routeros/${CHR_VERSION}/${FILE_NAME}.img.zip" && \
+    unzip "${FILE_NAME}.img.zip" && \
+    mv "${FILE_NAME}.img" /images/chr.img && \
+    rm "${FILE_NAME}.img.zip"
 
 RUN mkdir -p /storage
 
