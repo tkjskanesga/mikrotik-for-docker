@@ -8,7 +8,7 @@ FROM alpine:3.19
 ARG TARGETARCH
 RUN apk add --no-cache qemu-system-x86_64 qemu-img iproute2 iptables bash wget
 
-ARG CHR_VERSION=7.14.3
+ARG CHR_VERSION=7.21.4
 
 WORKDIR /images
 RUN CHR_VERSION_SUFFIX="" && \
