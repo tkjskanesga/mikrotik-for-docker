@@ -1,4 +1,4 @@
-# Mikrotik on Docker
+# Mikrotik for Docker
 
 This repository provides a simple way to run MikroTik CHR in Docker using QEMU on x86_64 containers. It is meant for learning, lab testing, and small network demonstrations.
 
