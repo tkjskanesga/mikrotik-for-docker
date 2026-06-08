@@ -1,0 +1,52 @@
+services:
+  router-1:
+    image: mikrotik-on-docker:latest
+    container_name: router-1
+    privileged: true
+    environment:
+      - RAM=1024M
+      - CPU=1
+      - LINK_ETHER=r1 # New Bridge As "ether2" (r1 > ether2)
+    ports:
+      - "5501:8291"
+      - "5502:80"
+    volumes:
+      - ./router/1:/storage
+    networks:
+      - chr-mikrotik-demo
+
+  router-2:
+    image: mikrotik-on-docker:latest
+    container_name: router-2
+    privileged: true
+    environment:
+      - RAM=1024M
+      - CPU=1
+      - LINK_ETHER=r1,r2 # New Bridge As "ether2" and "ether3" (r1 > ether2, r2 > ether3)
+    ports:
+      - "5503:8291"
+      - "5504:80"
+    volumes:
+      - ./router/2:/storage
+    networks:
+      - chr-mikrotik-demo
+
+  router-3:
+    image: mikrotik-on-docker:latest
+    container_name: router-3
+    privileged: true
+    environment:
+      - RAM=1024M
+      - CPU=1
+      - LINK_ETHER=r2 # New Bridge As "ether2" (r2 > ether2)
+    ports:
+      - "5505:8291"
+      - "5506:80"
+    volumes:
+      - ./router/3:/storage
+    networks:
+      - chr-mikrotik-demo
+
+networks:
+  chr-mikrotik-demo:
+    driver: bridge
